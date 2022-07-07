@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Exception;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,17 +15,27 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
-    }
+        try {
+            $categories = Category::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+            $responseContent = [
+                "Status" => "SUCCESS",
+                "code" => "LOCSO",
+                "Message" => "List Of Categories Successfully Obtained",
+                "data" => $categories
+            ];
+
+            return response()->json($responseContent, 200);
+        } catch (Exception $e) {
+            $responseContent = [
+                "Status" => "ERROR",
+                "code" => "EGCL",
+                "Message" => "Error Getting Categories List" . $e->getMessage(),
+                "data" => $categories
+            ];
+
+            return response()->json($responseContent, 400);
+        }
     }
 
     /**
@@ -45,17 +56,6 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
     {
         //
     }
