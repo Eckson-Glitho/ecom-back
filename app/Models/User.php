@@ -41,4 +41,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the wishlist associated with the user
+     */
+    public function wishlist(){
+        return $this->hasOne(Wishlist::class);
+    }
 }
