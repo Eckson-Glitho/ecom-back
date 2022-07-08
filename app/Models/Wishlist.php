@@ -9,6 +9,8 @@ class Wishlist extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     /**
      * Get the user that owns the wishlist
      */

@@ -9,6 +9,8 @@ class Product extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     /**
      * the wishlists that belong to the product
      */

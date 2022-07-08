@@ -9,6 +9,8 @@ class Sub_category extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     /**
      * get the category that owns the sub_category
      */
