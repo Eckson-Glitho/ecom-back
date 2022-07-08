@@ -15,27 +15,27 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // try {
-        //     $categories = Category::all();
+        try {
+            $categories = Category::all();
 
-        //     $responseContent = [
-        //         "Status" => "SUCCESS",
-        //         "code" => "LOCSO",
-        //         "Message" => "List Of Categories Successfully Obtained",
-        //         "data" => $categories
-        //     ];
+            $responseContent = [
+                "Status" => "SUCCESS",
+                "code" => "LOCSO",
+                "Message" => "List Of Categories Successfully Obtained",
+                "data" => $categories
+            ];
 
-        //     return response()->json($responseContent, 200);
-        // } catch (Exception $e) {
-        //     $responseContent = [
-        //         "Status" => "ERROR",
-        //         "code" => "EGCL",
-        //         "Message" => "Error Getting Categories List" . $e->getMessage(),
-        //         "data" => $categories
-        //     ];
+            return response()->json($responseContent, 200);
+        } catch (Exception $e) {
+            $responseContent = [
+                "Status" => "ERROR",
+                "code" => "EGCL",
+                "Message" => "Error Getting Categories List" . $e->getMessage(),
+                "data" => $categories
+            ];
 
-        //     return response()->json($responseContent, 400);
-        // }
+            return response()->json($responseContent, 400);
+        }
     }
 
     /**

@@ -26,8 +26,11 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 });
 
 
+//Route::get('categories/all', [CategoryController::class, 'index']); you either use this
+
+
 //CATEGORIES Routes
-Route::controller(CategoryController::class)->group(function(){
+Route::controller(CategoryController::class)->group(function(){ // or this, yaay khool
     //Route::get('/departments/all', 'index');
-    Route::get('/categories/all', 'categories.index');
+    Route::get('/categories/all', 'index');
 });
