@@ -15,26 +15,19 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        try {
+        try
+        {
             $categories = Category::all();
 
-            $responseContent = [
-                "Status" => "SUCCESS",
-                "code" => "LOCSO",
-                "Message" => "List Of Categories Successfully Obtained",
-                "data" => $categories
-            ];
+            $message = "List Of Categories Successfully Obtained";
 
-            return response()->json($responseContent, 200);
-        } catch (Exception $e) {
-            $responseContent = [
-                "Status" => "ERROR",
-                "code" => "EGCL",
-                "Message" => "Error Getting Categories List" . $e->getMessage(),
-                "data" => $categories
-            ];
+            return Controller::sendResponse("SUCCESS", "LOCSO", $message, $categories);
+        }
+        catch (Exception $e)
+        {
+            $message = "Error Getting Categories List" . $e->getMessage();
 
-            return response()->json($responseContent, 400);
+            return Controller::sendResponse("SUCCESS", "EGCL", $message);
         }
     }
 
@@ -46,7 +39,25 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+
+        $category->id = Controller::generateCustomID($request->name);
+        $category->name = $request->name;
+
+        // try
+        // {
+            $category->save();
+
+            $message = "Category Successfully Created";
+
+            return Controller::sendResponse("SUCCESS", "CSC", $message, $category);
+        // }
+    //     catch (Exception $e)
+    //     {
+    //         $message = "ErrOr Creating Category";
+
+    //         return Controller::sendResponse("ERROR", "ECC", $message);
+    //     }
     }
 
     /**

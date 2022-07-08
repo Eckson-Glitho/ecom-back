@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('user_wishlists', function (Blueprint $table) {
             $table->bigInteger('user_id');
-            $table->bigInteger('product_id');
+            $table->string('product_id');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
