@@ -44,20 +44,20 @@ class CategoryController extends Controller
         $category->id = Controller::generateCustomID($request->name);
         $category->name = $request->name;
 
-        // try
-        // {
+        try
+        {
             $category->save();
 
             $message = "Category Successfully Created";
 
             return Controller::sendResponse("SUCCESS", "CSC", $message, $category);
-        // }
-    //     catch (Exception $e)
-    //     {
-    //         $message = "ErrOr Creating Category";
+        }
+        catch (Exception $e)
+        {
+            $message = "ErrOr Creating Category";
 
-    //         return Controller::sendResponse("ERROR", "ECC", $message);
-    //     }
+            return Controller::sendResponse("ERROR", "ECC", $message);
+        }
     }
 
     /**
@@ -78,9 +78,22 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $categoryID)
     {
-        //
+        try {
+            $selectedCategory = Category::find($categoryID);
+
+            $selectedCategory->name = $request->name;
+            $selectedCategory->update();
+
+            $message = "Category Successfully Updated";
+
+            return Controller::sendResponse("SUCCESS", "CSU", $message, $selectedCategory);
+        } catch (Exception $e) {
+            $message = "Error Updating Category";
+
+            return Controller::sendResponse("ERROR", "EUC", $message);
+        }
     }
 
     /**
