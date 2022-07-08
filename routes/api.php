@@ -29,6 +29,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 Route::get('categories/all', [CategoryController::class, 'index']); //you either use this
 Route::post('categories/add', [CategoryController::class, 'store']);
 Route::put('categories/update/{category_id}', [CategoryController::class, 'update']);
+Route::delete('categories/delete/{category_id}', [CategoryController::class, 'destroy']);
 //CATEGORIES Routes
 // Route::controller(CategoryController::class)->group(function(){ // or this, yaay khool (old methode)
 //     //Route::get('/departments/all', 'index');

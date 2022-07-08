@@ -54,7 +54,7 @@ class CategoryController extends Controller
         }
         catch (Exception $e)
         {
-            $message = "ErrOr Creating Category";
+            $message = "Error Creating Category" . $e->getMessage();
 
             return Controller::sendResponse("ERROR", "ECC", $message);
         }
@@ -90,7 +90,7 @@ class CategoryController extends Controller
 
             return Controller::sendResponse("SUCCESS", "CSU", $message, $selectedCategory);
         } catch (Exception $e) {
-            $message = "Error Updating Category";
+            $message = "Error Updating Category" . $e->getMessage();
 
             return Controller::sendResponse("ERROR", "EUC", $message);
         }
@@ -102,8 +102,19 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($categoryID)
     {
-        //
+        try {
+            $selectedCategory = Category::find($categoryID);
+            $selectedCategory->delete();
+
+            $message = "Category Successfully Deleted";
+
+            return Controller::sendResponse("SUCCESS", "CSD", $message);
+        } catch (Exception $e) {
+            $message = "Error Deleting Category" . $e->getMessage();
+
+            return Controller::sendResponse("ERROR", "EDC", $message);
+        }
     }
 }
