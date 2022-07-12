@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Sub_category;
 use Exception;
 use Illuminate\Http\Request;
@@ -15,7 +16,20 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        //
+        try
+        {
+            $sub_categories = Sub_category::all();
+
+            $message = "List Of Sub Categories Successfully Obtained";
+
+            return Controller::sendResponse("SUCCESS", "LOSCSO", $message, $sub_categories);
+        }
+        catch (Exception $e)
+        {
+            $message = "Error Getting Categories List" . $e->getMessage();
+
+            return Controller::sendResponse("SUCCESS", "EGCL", $message);
+        }
     }
 
     /**
