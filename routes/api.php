@@ -33,7 +33,7 @@ Route::put('categories/update/{category_id}', [CategoryController::class, 'updat
 Route::delete('categories/delete/{category_id}', [CategoryController::class, 'destroy']);
 
 //SUB_CATEGORIES
-Route::get('subCategories/all', [CategoryController::class, 'index']);
-Route::post('subCategories/add', [CategoryController::class, 'store']);
+Route::get('subCategories/all', [SubCategoryController::class, 'index']);
+Route::post('subCategories/add', [SubCategoryController::class, 'store']);
 Route::put('subCategories/update/{subCategory_id}', [SubCategoryController::class, 'update']);
 Route::delete('subCategories/delete/{subCategory_id}', [SubCategoryController::class, 'destroy']);

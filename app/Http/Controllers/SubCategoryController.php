@@ -36,22 +36,18 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $sub_category = new Sub_category();
+        try {
+            $sub_category = new Sub_category();
 
-        $sub_category->id = Controller::generateCustomID($request->name);
-        $sub_category->name = $request->name;
-        $sub_category->category_id = $request->category_id;
-
-        try
-        {
+            $sub_category->id = Controller::generateCustomID($request->name);
+            $sub_category->name = $request->name;
+            $sub_category->category_id = $request->category_id;
             $sub_category->save();
 
             $message = "Sub Category Successfully Created";
 
             return Controller::sendResponse("SUCCESS", "SCSC", $message, $sub_category);
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             $message = "Error Creating Sub Category" . $e->getMessage();
 
             return Controller::sendResponse("ERROR", "ECSC", $message);
@@ -87,9 +83,23 @@ class SubCategoryController extends Controller
      * @param  \App\Models\Sub_category  $sub_category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sub_category $sub_category)
+    public function update(Request $request, $sub_category)
     {
-        //
+        try {
+            $selectedSubCategory = Sub_category::find($sub_category);
+
+            $selectedSubCategory->name = $request->name;
+            $selectedSubCategory->category_id = $request->category_id;
+            $selectedSubCategory->update();
+
+            $message = "Sub Category Successfully Updated";
+
+            return Controller::sendResponse("SUCCESS", "SCSU", $message, $selectedSubCategory);
+        } catch (Exception $e) {
+            $message = "Error Updating Sub Category" . $e->getMessage();
+
+            return Controller::sendResponse("ERROR", "EUSC", $message);
+        }
     }
 
     /**
