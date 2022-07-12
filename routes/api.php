@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,13 +26,14 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     });
 });
 
-//CATEGORIEs
-Route::get('categories/all', [CategoryController::class, 'index']); //you either use this
+//CATEGORIES
+Route::get('categories/all', [CategoryController::class, 'index']);
 Route::post('categories/add', [CategoryController::class, 'store']);
 Route::put('categories/update/{category_id}', [CategoryController::class, 'update']);
 Route::delete('categories/delete/{category_id}', [CategoryController::class, 'destroy']);
-//CATEGORIES Routes
-// Route::controller(CategoryController::class)->group(function(){ // or this, yaay khool (old methode)
-//     //Route::get('/departments/all', 'index');
-//     Route::get('/categories/all', 'index');
-// });
+
+//SUB_CATEGORIES
+Route::get('subCategories/all', [CategoryController::class, 'index']);
+Route::post('subCategories/add', [CategoryController::class, 'store']);
+Route::put('subCategories/update/{subCategory_id}', [SubCategoryController::class, 'update']);
+Route::delete('subCategories/delete/{subCategory_id}', [SubCategoryController::class, 'destroy']);

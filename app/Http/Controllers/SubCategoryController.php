@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sub_category;
+use Exception;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
@@ -35,7 +36,26 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sub_category = new Sub_category();
+
+        $sub_category->id = Controller::generateCustomID($request->name);
+        $sub_category->name = $request->name;
+        $sub_category->category_id = $request->category_id;
+
+        try
+        {
+            $sub_category->save();
+
+            $message = "Sub Category Successfully Created";
+
+            return Controller::sendResponse("SUCCESS", "SCSC", $message, $sub_category);
+        }
+        catch (Exception $e)
+        {
+            $message = "Error Creating Sub Category" . $e->getMessage();
+
+            return Controller::sendResponse("ERROR", "ECSC", $message);
+        }
     }
 
     /**
