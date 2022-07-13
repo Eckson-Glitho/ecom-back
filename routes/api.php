@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,3 +38,6 @@ Route::get('subCategories/all', [SubCategoryController::class, 'index']);
 Route::post('subCategories/add', [SubCategoryController::class, 'store']);
 Route::put('subCategories/update/{subCategory_id}', [SubCategoryController::class, 'update']);
 Route::delete('subCategories/delete/{subCategory_id}', [SubCategoryController::class, 'destroy']);
+
+//PRODUCT
+Route::post('products/add', [ProductController::class, 'store']);

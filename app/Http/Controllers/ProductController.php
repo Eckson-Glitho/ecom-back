@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -35,7 +36,25 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $product = new Product();
+
+            $product->id = Controller::generateCustomID($request->name);
+            $product->name = $request->name;
+            $product->price = $request->price;
+            $product->quantity = $request->quantity;
+            $product->category_id = $request->category_id;
+            $product->sub_category_id = $request->sub_category_id;
+            $product->save();
+
+            $message = "Product Created Successfully";
+
+            return Controller::sendResponse("SUCCESS", "PCS", $message, $product);
+        } catch (Exception $e) {
+            $message = "Error Creating Product" . $e->getMessage();
+
+            return Controller::sendResponse("ERROR", "ECP", $message);
+        }
     }
 
     /**
