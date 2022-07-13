@@ -15,7 +15,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $products = Product::all();
+
+            $message = "List Of Products Successfully Obtained";
+
+            return Controller::sendResponse("SUCCESS", "LOPSO", $message, $products);
+        } catch (Exception $e) {
+            $message = "Error Getting Products List" . $e->getMessage();
+
+            return Controller::sendResponse("ERROR", "EGPL", $message);
+        }
     }
 
     /**
@@ -125,7 +135,7 @@ class ProductController extends Controller
 
             return Controller::sendResponse("SUCCESS", "PDS", $message);
         } catch (Exception $e) {
-            $message = "Error Deleting Product";
+            $message = "Error Deleting Product" . $e->getMessage();
 
             return Controller::sendResponse("ERROR", "EPD", $message);
         }
