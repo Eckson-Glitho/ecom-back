@@ -41,3 +41,4 @@ Route::delete('subCategories/delete/{subCategory_id}', [SubCategoryController::c
 
 //PRODUCT
 Route::post('products/add', [ProductController::class, 'store']);
+Route::put('products/update/{productID}', [ProductController::class, 'update']);

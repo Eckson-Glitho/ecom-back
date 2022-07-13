@@ -86,9 +86,27 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $productID)
     {
-        //
+        try {
+            $selectedProduct = Product::find($productID);
+
+            $selectedProduct->id = Controller::generateCustomID($request->name);
+            $selectedProduct->name = $request->name;
+            $selectedProduct->price = $request->price;
+            $selectedProduct->quantity = $request->quantity;
+            $selectedProduct->category_id = $request->category_id;
+            $selectedProduct->sub_category_id = $request->sub_category_id;
+            $selectedProduct->update();
+
+            $message = "Product Updated Successfully";
+
+            return Controller::sendResponse("SUCCESS", "PUS", $message, $selectedProduct);
+        } catch (Exception $e) {
+            $message = "Error Updating Product" . $e->getMessage();
+
+            return Controller::sendResponse("ERROR", "EUP", $message);
+        }
     }
 
     /**
