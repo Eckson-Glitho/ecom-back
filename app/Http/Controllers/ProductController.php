@@ -65,7 +65,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return response()->json($product);
     }
 
     /**
@@ -115,8 +115,19 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($productID)
     {
-        //
+        try {
+            $selectedProduct = Product::find($productID);
+            $selectedProduct->delete();
+
+            $message = "Product Deleted Successfully";
+
+            return Controller::sendResponse("SUCCESS", "PDS", $message);
+        } catch (Exception $e) {
+            $message = "Error Deleting Product";
+
+            return Controller::sendResponse("ERROR", "EPD", $message);
+        }
     }
 }
